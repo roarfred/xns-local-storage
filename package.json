@@ -5,8 +5,10 @@
   "main": "githook.js",
   "dependencies": {
     "body-parser": "^1.15.1",
+    "child_process": "^1.0.2",
     "compression": "^1.6.2",
     "express": "^4.13.4",
+    "gulp": "^3.9.1",
     "mongodb": "^2.2.31",
     "mqtt": "^2.13.0",
     "node-local-tunnel": "^0.1.5",
