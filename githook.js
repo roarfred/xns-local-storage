@@ -42,10 +42,11 @@ app.post('/deploy', function (req, res) {
 
 	// and run tsc
 	exec('tsc', execCallback);
-});
 
-res.sendStatus(200);
-res.end();
+    res.sendStatus(200);
+    res.end();
+
+});
 
 app.listen(5000, function () {
 	console.log('listening on port 5000')
