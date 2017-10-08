@@ -31,7 +31,7 @@ app.get('/deploy', function (req, res) {
     exec('git -C ~/xns-local-storage pull -f', execCallback);
 
     // and npm install with --production
-    exec('npm -C ~/xns-local-storage --production', execCallback);
+    exec('npm build -C ~/xns-local-storage --production', execCallback);
 
     // and run tsc
     exec('tsc', execCallback);
