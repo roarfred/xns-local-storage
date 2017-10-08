@@ -18,8 +18,25 @@ app.get('/', function (req, res) {
 });
 
 app.get('/deploy', function (req, res) {
-    res.sendStatus(200);
 	console.log('get /deploy');
+	console.log('pulling code from GitHub...');
+    
+    // reset any changes that have been made locally
+    exec('git -C ~/xns-local-storage reset --hard', execCallback);
+
+    // and ditch any files that have been added locally too
+    exec('git -C ~/xns-local-storage clean -df', execCallback);
+
+    // now pull down the latest
+    exec('git -C ~/xns-local-storage pull -f', execCallback);
+
+    // and npm install with --production
+    exec('npm -C ~/xns-local-storage --production', execCallback);
+
+    // and run tsc
+    exec('tsc', execCallback);
+
+    res.sendStatus(200);
 });
 
 app.post('/deploy', function (req, res) {
