@@ -13,8 +13,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.get('/', function (req, res) {
-    res.sendFile(__dirname + '/index.htm');
-	console.log('get /');
+    //res.sendFile(__dirname + '/index.htm');
+    console.log('get /');
+    res.sendStatus(200);
 });
 
 app.get('/deploy', function (req, res) {
@@ -31,7 +32,7 @@ app.get('/deploy', function (req, res) {
     exec('git -C ~/xns-local-storage pull -f', execCallback);
 
     // and npm install with --production
-    exec('npm install -C ~/xns-local-storage --production', execCallback);
+    exec('npm install ~/xns-local-storage --production', execCallback);
 
     // and run tsc
     exec('tsc', execCallback);
