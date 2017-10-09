@@ -12,7 +12,6 @@ mongodbClient.connect(mongodbURI,setupCollection);
 function setupCollection(err,db) {
   if(err) throw err;
   collection=db.collection("IoT");
-  client=mqtt.connect('mqtt://localhost')
 }
 
 app.get('/', function (req, res) {
