@@ -21,8 +21,6 @@ app.get('/', function (req, res) {
     collection.findOne({ id: "espdebugger"}, function(err, doc) {
         res.send(doc);
     });
-
-    res.sendStatus(200);
 });
 
 app.listen(5001, function () {
