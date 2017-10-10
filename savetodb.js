@@ -23,7 +23,7 @@ function insertEvent(topic,payload) {
   {
     collection.update(
       { _id:key },
-      { $push: { event: { data: value.data, when:new Date() } } },
+      { $push: { event: { data: value, when:new Date() } } },
       { upsert:true },
       function(err,docs) {
         if(err) { console.log("Insert fail"); } // Improve error handling
