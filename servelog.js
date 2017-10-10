@@ -4,7 +4,7 @@ var app = express();
 var mongodb=require('mongodb');
 
 var mongodbClient=mongodb.MongoClient;
-var mongodbURI='mongodb://192.168.10.203/sensors'
+var mongodbURI='mongodb://localhost/sensors'
 var collection;
 
 mongodbClient.connect(mongodbURI,setupCollection);
