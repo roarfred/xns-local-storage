@@ -25,7 +25,7 @@ function insertEvent(topic,payload) {
   {
     collection.update(
       { _id:key },
-      value,
+      { $set: value },
       { upsert:true },
       function(err,docs) {
         if(err) { console.log("Insert fail: " + err); } // Improve error handling
