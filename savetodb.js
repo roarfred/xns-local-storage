@@ -10,7 +10,7 @@ mongodbClient.connect(mongodbURI,setupCollection);
 
 function setupCollection(err,db) {
   if(err) throw err;
-  collection=db.collection("IoT2");
+  collection=db.collection("IoT");
   client=mqtt.connect('mqtt://localhost')
   client.subscribe(deviceRoot+"+")
   client.on('message', insertEvent);
