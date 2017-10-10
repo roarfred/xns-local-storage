@@ -25,6 +25,7 @@ function insertEvent(topic,payload) {
   {
     collection.update(
       { _id:key },
+      value,
       { $push: { event: { data: value.data, when:new Date() } } },
       { upsert:true },
       function(err,docs) {
