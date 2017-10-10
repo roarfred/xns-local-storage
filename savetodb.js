@@ -20,12 +20,11 @@ function insertEvent(topic,payload) {
   var key=topic.replace(deviceRoot,'');
   var value = JSON.parse(payload.toString());
   value._id = key;
-  
+
   if (value.data)
   {
     collection.update(
-      //{ _id:key },
-      value,
+      { _id:key, up: value.up },
       { $push: { event: { data: value.data, when:new Date() } } },
       { upsert:true },
       function(err,docs) {
