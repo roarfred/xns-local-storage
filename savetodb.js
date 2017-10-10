@@ -24,7 +24,7 @@ function insertEvent(topic,payload) {
   if (value.data)
   {
     collection.update(
-      { _id:key, up: value.up },
+      { _id:key },
       { $push: { event: { data: value.data, when:new Date() } } },
       { upsert:true },
       function(err,docs) {
