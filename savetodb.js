@@ -19,10 +19,12 @@ function setupCollection(err,db) {
 function insertEvent(topic,payload) {
   var key=topic.replace(deviceRoot,'');
   var value = JSON.parse(payload.toString());
+  
   if (value.data)
   {
     collection.update(
-      { _id:key },
+      //{ _id:key },
+      value,
       { $push: { event: { data: value.data, when:new Date() } } },
       { upsert:true },
       function(err,docs) {
