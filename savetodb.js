@@ -10,7 +10,7 @@ mongodbClient.connect(mongodbURI,setupCollection);
 
 function setupCollection(err,db) {
   if(err) throw err;
-  collection=db.collection("IoT");
+  collection=db.collection("IoT2");
   client=mqtt.connect('mqtt://localhost')
   client.subscribe(deviceRoot+"+")
   client.on('message', insertEvent);
@@ -18,13 +18,17 @@ function setupCollection(err,db) {
 
 function insertEvent(topic,payload) {
   var key=topic.replace(deviceRoot,'');
-  collection.update(
-    { _id:key },
-    { $push: { event: { value: JSON.parse(payload.toString()), when:new Date() } } },
-    { upsert:true },
-    function(err,docs) {
-      if(err) { console.log("Insert fail"); } // Improve error handling
-    }
-  )
+  var value = JSON.parse(payload.toString());
+  if (value.data)
+  {
+    collection.update(
+      { _id:key },
+      { $push: { event: { data: value.data, when:new Date() } } },
+      { upsert:true },
+      function(err,docs) {
+        if(err) { console.log("Insert fail"); } // Improve error handling
+      }
+    );
+  }
 }
 
