@@ -26,7 +26,7 @@ function insertEvent(topic,payload) {
       { $push: { event: { data: value, when:new Date() } } },
       { upsert:true },
       function(err,docs) {
-        if(err) { console.log("Insert fail"); } // Improve error handling
+        if(err) { console.log("Insert fail: " + err); } // Improve error handling
       }
     );
   }
