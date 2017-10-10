@@ -40,6 +40,7 @@ app.get('/', function (req, res) {
         },
         {$project:
         {
+            _id: false,
             P: "$history.P",
             when: "$history.when"
         }}
