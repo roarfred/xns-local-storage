@@ -19,6 +19,7 @@ function setupCollection(err,db) {
 function insertEvent(topic,payload) {
   var key=topic.replace(deviceRoot,'');
   var value = JSON.parse(payload.toString());
+  value._id = key;
   
   if (value.data)
   {
