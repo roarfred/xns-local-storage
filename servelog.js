@@ -25,16 +25,13 @@ app.get('/', function (req, res) {
     collection.aggregate([
         {$match : { _id: "espdebugger"}},
         {$project: {
-            event: {
-                value: {
-                    data: {P: true}
-                },
-                when: true
+            history: {
+                P: true, when: true
             }
         }},
-        {$unwind: "$event"}, 
+        {$unwind: "$history"}, 
         {$match: {
-            "event.when": { $gte: d } //{$exists:true}
+            "history.when": { $gte: d } //{$exists:true}
             
 //                { $gte:'2017-10-09T04:00:00Z', 
 //                  $lt: '2018-10-01T04:00:00Z'
@@ -43,8 +40,8 @@ app.get('/', function (req, res) {
         },
         {$project:
         {
-            P: "$event.value.data.P",
-            when: "$event.when"
+            P: "$history.P",
+            when: "$history.when"
         }}
         //{ $group: { _id: null, count: { $sum: 1 } } }
 /*
