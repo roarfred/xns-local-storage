@@ -33,7 +33,7 @@ function insertEvent(topic,payload) {
 
     collection.update(
       { _id:key },
-      { $push: { event: { data: value.data, when:new Date() } } },
+      { $push: { history: { data: value.data, when:new Date() } } },
       { upsert:true },
       function(err,docs) {
         if(err) { console.log("Insert fail: " + err); } // Improve error handling
