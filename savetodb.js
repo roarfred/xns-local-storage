@@ -5,6 +5,7 @@ var mongodbClient=mongodb.MongoClient;
 var mongodbURI='mongodb://localhost/sensors'
 var deviceRoot="sensors/out/"
 var collection,client;
+var history = {};
 
 mongodbClient.connect(mongodbURI,setupCollection);
 
@@ -31,15 +32,19 @@ function insertEvent(topic,payload) {
       }
     );
 
-    value.data.when = new Date();
-    collection.update(
-      { _id:key },
-      { $push: { history: value.data } },
-      { upsert:true },
-      function(err,docs) {
-        if(err) { console.log("Insert fail: " + err); } // Improve error handling
-      }
-    );
+    if (!history[key] || Math.abs(history[key] - new Date()) > 60 * 1000)
+    {
+      value.data.when = new Date();
+      history[key] = value.data.when;
+      collection.update(
+        { _id:key },
+        { $push: { history: value.data } },
+        { upsert:true },
+        function(err,docs) {
+          if(err) { console.log("Insert fail: " + err); } // Improve error handling
+        }
+      );
+    }
   }
 }
 
