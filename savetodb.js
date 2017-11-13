@@ -18,7 +18,8 @@ function setupCollection(err,db) {
 }
 
 function insertEvent(topic,payload) {
-  var key=topic.replace(deviceRoot,'');
+  var key = topic.replace(deviceRoot,'');
+  console.log("Received message: " + payload.toString());
   var value = JSON.parse(payload.toString());
 
   if (value.data)
