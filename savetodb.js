@@ -24,6 +24,10 @@ function insertEvent(topic,payload) {
 
   if (value.data)
   {
+    var historyKey = key;
+    if (value.data.s)
+      historyKey += "/" + value.data.s;
+
     collection.update(
       { _id:key },
       { $set: value },
@@ -33,10 +37,10 @@ function insertEvent(topic,payload) {
       }
     );
 
-    if (!history[key] || Math.abs(history[key] - new Date()) > 60 * 1000)
+    if (!history[historyKey] || Math.abs(history[historyKey] - new Date()) > 60 * 1000)
     {
       value.data.when = new Date();
-      history[key] = value.data.when;
+      history[historyKey] = value.data.when;
       collection.update(
         { _id:key },
         { $push: { history: value.data } },
