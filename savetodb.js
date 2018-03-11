@@ -13,7 +13,7 @@ function setupCollection(err,db) {
   if(err) throw err;
   collection=db.collection("IoT");
   client=mqtt.connect('mqtt://localhost')
-  client.subscribe(deviceRoot+"+")
+  client.subscribe(deviceRoot+"#")
   client.on('message', insertEvent);
 }
 
@@ -21,6 +21,11 @@ function insertEvent(topic,payload) {
   var key = topic.replace(deviceRoot,'');
   //console.log("Received message: " + payload.toString());
   var value = JSON.parse(payload.toString());
+
+  if (value.id.startsWith("zwave-"))
+  {
+    value.data = JSON.parse(JSON.stringify(value));
+  }
 
   if (value.data)
   {
